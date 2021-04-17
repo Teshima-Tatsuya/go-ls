@@ -17,6 +17,8 @@ func main() {
 	}
 
 	for _,fileInfo := range fileInfos {
-		fmt.Println(fileInfo.Name())
+		fmt.Print(fileInfo.Name())
+		fmt.Print("\t")
 	}
+	fmt.Println()
 }
