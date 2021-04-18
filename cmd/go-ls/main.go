@@ -11,6 +11,7 @@ import (
 
 func main() {
 	lFlag := flag.Bool("l", false, "multi line print")
+	aFlag := flag.Bool("a", false, "show hidden files")
 	flag.Parse()
 
 	dir, err := os.Getwd()
@@ -27,13 +28,17 @@ func main() {
 	}
 
 	for _, fileInfo := range fileInfos {
-		if !strings.HasPrefix(fileInfo.Name(), ".") {
-			fmt.Print(fileInfo.Name())
-			if *lFlag == false {
-				fmt.Print("\t")
-			} else {
-				fmt.Println()
+		// show hidden files
+		if *aFlag == false {
+			if strings.HasPrefix(fileInfo.Name(), ".") {
+				continue
 			}
+		}
+		fmt.Print(fileInfo.Name())
+		if *lFlag == false {
+			fmt.Print("\t")
+		} else {
+			fmt.Println()
 		}
 	}
 	if *lFlag == false {
