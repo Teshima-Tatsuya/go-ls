@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	lFlag := flag.Bool("l", false, "multi line print")
 	flag.Parse()
 
 	dir, err := os.Getwd()
@@ -28,8 +29,14 @@ func main() {
 	for _, fileInfo := range fileInfos {
 		if !strings.HasPrefix(fileInfo.Name(), ".") {
 			fmt.Print(fileInfo.Name())
-			fmt.Print("\t")
+			if *lFlag == false {
+				fmt.Print("\t")
+			} else {
+				fmt.Println()
+			}
 		}
 	}
-	fmt.Println()
+	if *lFlag == false {
+		fmt.Println()
+	}
 }
